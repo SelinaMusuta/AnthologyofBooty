@@ -1,0 +1,46 @@
+<html>
+
+<head>
+
+<title>Welcome ~ Anthology of Booty</title>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='aob.css')}}">
+
+
+</head>
+
+<body>
+
+<div id = "navigation_bar"><h1>Dancefloor Planet!</h1><h4>with Anthology of Booty</h4>
+
+<ul>
+<li>origin story</li>
+<li>the big game</li>
+<li>Hit us up</li>
+</ul>
+
+</div>
+
+{% for post in posts %}
+<div{%if post.author == "Indanile" %} id = "content" {% else %} id="content_alternative" {% endif %}>
+
+<p><p><span class = "post_heading">
+{{post.title}}</p> 
+</span> 
+
+Posted by {{post.author}} {{post.date_posted}}</p>
+
+<p>{{post.content}}</p><p>
+
+</div>
+
+<br>
+<h4>Leave a message:</h4>
+<p>{{post.comment}}</p>
+<br>
+
+{% endfor %}
+
+</body>
+
+<html>
