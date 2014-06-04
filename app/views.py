@@ -1,13 +1,34 @@
 
 # -*- coding: utf-8 -*-
 
-from app import app
-from flask import render_template
-from models import Post
+from app import app, db
+from flask import render_template, redirect
+from models import Post, User
+from forms import NewUserForm, NewPostForm #You have to import the class
+
 
 @app.route('/')
 def index(): # This is the landing page
-	first_post = Post("Mothershiester", "Synth Mix", "May 28, 2014", "Summer is turned up!  Spinning music all season long. Join me at Pride!", "What day?")
-	second_post = Post("Bent", "Soundtrack to your life", "May 16, 2014", "How many soundtracks do you have going on in your head?  What songs define the most momentous of days.  Look forward to hearing more", "Yay. I will share!")
-	third_post = Post("Indanile", "Das German Party Lives", "February 13, 2014", "Warm yourself up with biers...spelled the German way.  Don't let the cold keep you from socializing, it's worth it.", "Be there with the my glow sticks!!!")
-	return render_template('swampr.html', posts = [first_post, second_post, third_post])
+	all_users = User.query.all()
+	posts = Post.query.all()
+	return render_template('swampr.html', users = all_users, posts = posts)
+
+@app.route('/add_user', methods = ['GET', 'POST']) #You are telling this computer get something for the user and to also post any input from the user 
+def add_user():
+	form = NewUserForm()
+	if form.validate_on_submit(): #valid_on_submit is a subfunction
+			user = User()
+			#if user submits a valid form, populate the object/class user.
+			form.populate_obj(user)
+			#Then add to the database and commit
+			db.session.add(user)
+			db.session.commit()
+			#direct them back to the landing page
+			return redirect('/')
+
+	return render_template("add_user.html",form = form) #Just shows them the form
+
+@app.route('/post')
+def post(): # This is the landing page
+	form = NewPostForm()
+	return render_template('posts.html', users = all_users, posts = posts)

@@ -15,20 +15,26 @@
 
 <ul>
 <li>origin story</li>
-<li>the big game</li>
-<li>Hit us up</li>
+<a href="{{ url_for('add_user')}}"><li>Add Your Name</li></a>
+<li>hit us up</li>
 </ul>
+
+<br>
 
 </div>
 
-{% for post in posts %}
-<div{%if post.author == "Indanile" %} id = "content" {% else %} id="content_alternative" {% endif %}>
+{% for user in users %}
+{%for post in posts %}
+<!--<div{%if user.author == "Indanile" %} id = "content" {% else %} id="content_alternative" {% endif %}>-->
 
-<p><p><span class = "post_heading">
-{{post.title}}</p> 
+<p><p><span class = "post_heading">{{user.dj_name}}
+</p> 
 </span> 
 
-Posted by {{post.author}} {{post.date_posted}}</p>
+<br>{{user.firstname}} {{user.lastname}}
+
+Posted by {{user.dj_name}} {{post.date_posted}}
+
 
 <p>{{post.content}}</p><p>
 
@@ -36,11 +42,11 @@ Posted by {{post.author}} {{post.date_posted}}</p>
 
 <br>
 <h4>Leave a message:</h4>
-<p>{{post.comment}}</p>
+{{post.comment}}</p>
 <br>
 
 {% endfor %}
-
+{% endfor %}
 </body>
 
 <html>

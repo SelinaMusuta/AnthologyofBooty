@@ -1,0 +1,18 @@
+<html>
+
+<head>
+
+
+<title>Make History</title>
+
+</head>
+
+<form action="" method="post" name="newuser"> <!--this allows this html page to use the form-->
+{{form.hidden_tag()}} <!--at the beginning of every form write this- it enables CSRf protection-->
+First Name: {{ form.firstname(size=30) }}
+<br>Last Name: {{ form.lastname(size=30) }}
+<br>DJ Name: {{ form.dj_name(size=30) }}
+<br>
+<br><input type="submit" value="Join. We Run This World">
+
+</html>
